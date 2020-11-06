@@ -102,10 +102,8 @@ void	unite_stnext(char **s, char **line, int fd, int *n)
 		*line = ft_newstr(buff, j, 1, 1);
 		j = ft_strsize(buff, j, 1) + 1;
 		if (buff[j - 1] != '\0')
-		{
 			*s = ft_newstr(buff, j, 0, 0);
-			printf("it's continue |%s| %s\n", *line, *s);
-		}
+		printf("it's continue |%s| %i\n", *line, *n);
 	}
 	/*else if (*s != NULL)
 	{

@@ -36,11 +36,12 @@ int get_next_line(int fd, char **line)
 			divide_static(s, line, j, &n);
 		else
 		{
+			printf("Second!\n");
 			if ((*s)[j] == '\0')
 				unite_stnext(s, line, fd, &n);
 		}
 	}
-	printf("TEMP - |%s| |%s|<-----------------\n", *line, *s);
+	printf("TEMP - |%s| |%s| %i<-----------------\n", *line, *s, n);
 	printf("End get next line!\n");
 	
 	return ((n == 0) ? 0 : 1);
