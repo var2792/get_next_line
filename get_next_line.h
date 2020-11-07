@@ -18,10 +18,10 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-int		get_next_line(int fd, char **line);
-char	*ft_strjoinsize(char const *s1, char const *s2, int size);
-int		ft_strsize(const char *str, int start, int fl0);
-char	*ft_newstr(char *s, int start, int fl, int fl0);
-void	divide_static(char **s, char **line, int end, int *n);
-void	unite_stnext(char **s, char **line, int end, int *n);
+int			get_next_line(int fd, char **line);
+int			ft_findchr(char *st, char c);
+size_t		ft_strlen(const char *s);
+char		*join_temp(const char *s1, const char *s2);
+void		divide_static(char **st);
+void		unite_stnext(char **line, char **st);
 #endif

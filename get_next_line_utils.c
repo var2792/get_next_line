@@ -12,106 +12,106 @@
 
 #include "get_next_line.h"
 
-int		ft_strsize(const char *str, int start, int fl0)
+size_t	ft_strlen(const char *s)
 {
-	unsigned long i;
+	int i;
 
-	i = start;
-	while (str[i] != '\0' && str[i] != '\n' && fl0)
-		i++;
-	while (str[i] != '\0' && !fl0)
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i] != '\0')
 		i++;
 	return (i);
 }
 
-char	*ft_strjoinsize(char const *s1, char const *s2, int size)
+char	*join_temp(char const *s1, char const *s2)
 {
-	int		i;
-	int		j;
+	size_t	i;
+	size_t	j;
+	size_t	len_s1;
+	size_t	len_s2;
 	char	*res;
 
-	if (!(res = malloc(sizeof(char) * (ft_strsize(s1, 0, 1) + size + 1))))
+	if (!s1 && !s2)
+		return (NULL);
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	if (!(res = malloc(sizeof(char) * (len_s1 + len_s2 + 1))))
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (s1[j])
+	while (j < len_s1)
 		res[i++] = s1[j++];
 	j = 0;
-	while (j < size)
+	while (j < len_s2)
 		res[i++] = s2[j++];
 	res[i] = '\0';
 	return (res);
 }
 
-char	*ft_newstr(char *s1, int start, int fl, int fl0)
+int		ft_findchr(char *st, char c)
 {
-	char	*buff;
-	int		num;
 	int		i;
 
-	num = ft_strsize(s1, start, fl0);
-	if (!(buff = malloc(sizeof(char) * (num + 1))))
-		return (NULL);
 	i = 0;
-	while (i + start < num)
+	if (!st)
+		return (-1);
+	while (c != st[i])
 	{
-		*(buff + i) = *(s1 + i + start);
+		if (st[i] == '\0')
+			break ;
 		i++;
 	}
-	if (!fl && *(s1 + i + start) == '\n')
-		*(buff + i) = '\n';
-	else
-		*(buff + i) = '\0';
-	return (buff);
+	if (st[i] == '\0')
+		return (-1);
+	return (i);
 }
 
-void	divide_static(char **s, char **line, int end, int *n)
+void	divide_static(char **st)
 {
-	char		*temp;
-
-	*n = 1;
-	temp = NULL;
-	printf("Here devide!\n");
-	*line = ft_newstr(*s, 0, 1, 1);
-	temp = ft_newstr(*s, end + 1, 0, 1);
-	free(*s);
-	*s = temp;
-	printf("it's devide end - |%s| - |%s|\n", *line, *s);
-	
-}
-
-void	unite_stnext(char **s, char **line, int fd, int *n)
-{
-	char	*buff;
+	char	*temp;
+	int		i;
 	int		j;
 
-	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	free(*s);
-	printf("Here unite!\n");
+	i = 0;
 	j = 0;
-	if (*s != NULL)
+	printf("Here devide! %p\n", *st);
+	while ((*st)[i] && (*st)[i] != '\n')
+		i++;
+	if (!(temp = malloc(sizeof(char) * ((ft_strlen(*st) - i) + 1))))
 	{
-		while ((*s)[j] != '\0')
-			j++;
-		//temp = ft_strjoinsize(*s, buff, ft_strsize(buff, j));
+		//free(*st);
+		//*st = NULL;
+		return ;
 	}
-	if ((*n = read(fd, buff, BUFFER_SIZE)) > 0)
+	i++;
+	while ((*st)[i])
+		temp[j++] = (*st)[i++];
+	temp[j] = '\0';
+	//free (*st);
+	*st = temp;
+}
+
+void	unite_stnext(char **line, char **st)
+{
+	int		i;
+
+	i = 0;
+	printf("Here unite!\n");
+	while ((*st)[i] && (*st)[i] != '\n')
+		i++;
+	if (!(*line = malloc(sizeof(char) * (i + 1))))
 	{
-		buff[*n] = '\0';
-		printf("Here with s!\n");
-		*line = ft_newstr(buff, j, 1, 1);
-		j = ft_strsize(buff, j, 1) + 1;
-		if (buff[j - 1] != '\0')
-			*s = ft_newstr(buff, j, 0, 0);
-		printf("it's continue |%s| %i\n", *line, *n);
+		//free(*st);
+		//*st = NULL;
+		return ;
 	}
-	/*else if (*s != NULL)
+	i = 0;
+	while ((*st)[i] && (*st)[i] != '\n')
 	{
-		printf("Here without!\t %s\n", *s);
-		if (**s != '\0')
-			*line = ft_newstr(*s, 0, 1, 0);
-		free(*s);
-		printf("it's\tnext |%s| - |%s|\n", *line, *s);
-	}*/
-	free(buff);
+		(*line)[i] = (*st)[i];
+		i++;
+	}
+	(*line)[i] = '\0';
+	free(*st);
 }

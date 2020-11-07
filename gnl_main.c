@@ -8,10 +8,10 @@ int main(void)
 	int fd;
 	static char **line = NULL;
 
-	fd = open("file2.txt", O_RDWR);
+	fd = open("file1.txt", O_RDWR);
 	i = 0;
 	n = 1;
-	line = malloc(sizeof(char*) * 5);
+	line = malloc(sizeof(char*) * 10);
 	while (n > 0)
 	{
 		n = get_next_line(fd, &line[i]);

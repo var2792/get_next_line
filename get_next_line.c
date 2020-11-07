@@ -12,38 +12,29 @@
 
 #include "get_next_line.h"
 
-int get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line)
 {
-	static char	*s[255];
-	int			n;
-	int			j;
-	//int			t;
-	
-	n  = 0;
-	if (fd < 0)
+	char			buff[BUFFER_SIZE + 1];
+	static char		*s;
+	int				n;
+
+	n = 1;
+	if (fd < 0 || !line || BUFFER_SIZE < 1)
 		return (-1);
-	j = 0;
-	if (*s != NULL)
-		while ((*s)[j] != '\n' && (*s)[j] != '\0')
-		{
-			j++;
-		}
-	if (*s == NULL)
-		unite_stnext(s, line, fd, &n);
-	else
+	while (ft_findchr(s, '\n') < 0 && n > 0)
 	{
-		if ((*s)[j] == '\n')
-			divide_static(s, line, j, &n);
-		else
+		if ((n = read(fd, buff, BUFFER_SIZE)) >= 0)
 		{
-			printf("Second!\n");
-			if ((*s)[j] == '\0')
-				unite_stnext(s, line, fd, &n);
+			buff[n] = '\0';
+			s = join_temp(s, buff);
 		}
 	}
-	printf("TEMP - |%s| |%s| %i<-----------------\n", *line, *s, n);
+	if (s)
+	{
+		unite_stnext(line, &s);
+		divide_static(&s);
+	}
+	printf("TEMP - |%s| |%s| %i<-----------------\n", *line, s, n);
 	printf("End get next line!\n");
-	
-	return ((n == 0) ? 0 : 1);
+	return ((n == 0) ? 0 : n);
 }
-
