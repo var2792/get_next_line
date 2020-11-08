@@ -72,28 +72,26 @@ void	divide_static(char **st)
 	char	*temp;
 	int		i;
 	int		j;
+	int		len_temp;
 
 	i = 0;
 	j = 0;
 	if (!(**st))
-	{
-		printf("Here ==============>>\t%i\n", i);
 		return ;
-	}
 	while ((*st)[i] && (*st)[i] != '\n')
 		i++;
-	printf("Here devide!\t%p %i\n", *st, i);
-	if (!(temp = malloc(sizeof(char) * ((ft_strlen(*st) - i) + 1))))
+	len_temp = (ft_strlen(*st) - i) + 1;
+	//printf("Here devide!\n");
+	if (!(temp = malloc(sizeof(char) * len_temp)))
 	{
 		free(*st);
-		*st = NULL;
 		return ;
 	}
 	i++;
 	while ((*st)[i])
 		temp[j++] = (*st)[i++];
 	temp[j] = '\0';
-	free (*st);
+	free(*st);
 	*st = temp;
 }
 
@@ -102,21 +100,14 @@ void	unite_stnext(char **line, char **st)
 	int		i;
 
 	i = 0;
-	if (!(**st))
-	{
-		printf("Here ==============>>\t%i\n", i);
-		//free(*st);
-		//free(*line);
-		//*line = NULL;
+	//printf("Here unite!\n");
+	if (!(*st))
 		return ;
-	}
 	while ((*st)[i] && (*st)[i] != '\n')
 		i++;
-	printf("Here unite!\t%i\n", i);
 	if (!(*line = malloc(sizeof(char) * (i + 1))))
 	{
 		free(*st);
-		*st = NULL;
 		return ;
 	}
 	i = 0;

@@ -14,19 +14,18 @@
 
 int		get_next_line(int fd, char **line)
 {
-	char			buff[BUFFER_SIZE + 1];
+	char			*buff;
 	static char		*s;
 	int				n;
-
+	
 	n = 1;
-	if (fd < 0 || !(line) || BUFFER_SIZE < 1)
-	{
-		printf("Here ==============>>\n");
+	if (fd < 0 || !line || BUFFER_SIZE < 0)
 		return (-1);
-	}
+	if (!(buff = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+		return (-1);
 	while (ft_findchr(s, '\n') < 0 && n > 0)
 	{
-		if ((n = read(fd, buff, BUFFER_SIZE)) >= 0)
+		if ((n = read(fd, buff, BUFFER_SIZE)) > 0)
 		{
 			buff[n] = '\0';
 			s = join_temp(s, buff);
@@ -37,8 +36,11 @@ int		get_next_line(int fd, char **line)
 		unite_stnext(line, &s);
 		divide_static(&s);
 	}
-	if (*s && *line)
-		printf("TEMP - |%s| |%s| %i<-----------------\n", *line, s, n);
-	printf("End get next line!\n");
+	//if (*line)
+		//printf("TEMP line - |%s|<-----------------\n", *line);
+	//if (*s)
+		//printf("TEMP static - |%s|<-----------------\n", s);
+	//printf("End get next line!\t%i\n", n);
+	free(buff);
 	return ((n == 0) ? 0 : n);
 }
