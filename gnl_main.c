@@ -11,19 +11,19 @@ int main(void)
 	fd = open("file1.txt", O_RDWR);
 	i = 0;
 	n = 1;
-	line = malloc(sizeof(char*) * 10);
+	line = malloc(sizeof(char*) * 4);
 	while (n > 0)
 	{
 		n = get_next_line(fd, &line[i]);
-		printf("n = %i\t", n);
-		printf("line = %s\n\n", line[i]);
+		printf("n = %i\n", n);
+		//printf("line = %s\n\n", line[i]);
 		//line++;
 		i++;
 	}
 	printf("n = %i\n", n);
 	j = 0;
 	printf("\nall = %i\n", i);
-	while (j < i)
+	while (j < i - 1)
 	{
 		printf("%i\t%s\n", j, line[j]);
 		j++;
