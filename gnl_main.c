@@ -4,17 +4,18 @@ int main(void)
 {
 	int i;
 	int fd;
+	int n;
 	char *s;
 	i = 0;
-	//printf(""); fd = 0;
-	fd = open("file5.txt", O_RDWR);
+	//fd = 0;
+	fd = open("file0", O_RDWR);
 	//fd = open("test9", O_RDWR);
-	printf("%d\n", get_next_line(fd, &s));
-	printf("%i\t%s\n", i++, s);
-	free(s);
-	while (get_next_line(fd, &s)) {
-		printf("%i\t%s\n", i++, s);
-		free(s);
+	n = 1;
+	while (n > 0)
+	{
+		n = get_next_line(fd, &s);
+		printf("%i\t%s\t%i\n", i++, s, n);
+		//free(s);
 	}
 	close(fd);
 }
