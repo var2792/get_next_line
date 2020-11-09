@@ -47,7 +47,10 @@ int		get_next_line(int fd, char **line)
 		divide_static(&s[fd]);
 	}
 	else
+	{
 		*line = NULL;
+		free(s[fd]);
+	}
 	//if (*line)
 		//printf("TEMP line - |%s|<-----------------\n", *line);
 	//if (*s)

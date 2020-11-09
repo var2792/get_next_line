@@ -15,7 +15,7 @@ int main(void)
 	{
 		n = get_next_line(fd, &s);
 		printf("%i\t%i\t|%s|\n", i++, n, s);
-		//free(s);
+		free(s);
 	}
 	close(fd);
 }
