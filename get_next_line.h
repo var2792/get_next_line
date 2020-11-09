@@ -21,7 +21,7 @@
 int			get_next_line(int fd, char **line);
 int			ft_findchr(char *st, char c);
 size_t		ft_strlen(const char *s);
-char		*join_temp(const char *s1, const char *s2);
+char		*join_temp(char *s1, const char *s2);
 void		divide_static(char **st);
 void		unite_stnext(char **line, char **st);
 #endif

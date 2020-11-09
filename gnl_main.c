@@ -14,7 +14,7 @@ int main(void)
 	while (n > 0)
 	{
 		n = get_next_line(fd, &s);
-		printf("%i\t%s\t%i\n", i++, s, n);
+		printf("%i\t%i\t|%s|\n", i++, n, s);
 		//free(s);
 	}
 	close(fd);

@@ -24,28 +24,32 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*join_temp(char const *s1, char const *s2)
+char	*join_temp(char *s1, char const *s2)
 {
 	size_t	i;
 	size_t	j;
-	size_t	len_s1;
-	size_t	len_s2;
 	char	*res;
 
 	if (!s1 && !s2)
 		return (NULL);
-	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(s2);
-	if (!(res = malloc(sizeof(char) * (len_s1 + len_s2 + 1))))
+	//printf("==> %li %li\n", len_s1, len_s2);
+	if (ft_strlen(s1) == 0 && ft_strlen(s2) == 0)
+	{
+		free(s1);
+		s1 = NULL;
+		return (NULL);
+	}
+	if (!(res = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (j < len_s1)
+	while (j < ft_strlen(s1))
 		res[i++] = s1[j++];
 	j = 0;
-	while (j < len_s2)
+	while (j < ft_strlen(s2))
 		res[i++] = s2[j++];
 	res[i] = '\0';
+	free(s1);
 	return (res);
 }
 

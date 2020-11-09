@@ -23,29 +23,31 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	if (!(buff = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
+	//*line = NULL;
 	while (ft_findchr(s[fd], '\n') < 0 && n > 0)
 	{
-		if ((n = read(fd, buff, BUFFER_SIZE)) > 0)
+		if ((n = read(fd, buff, BUFFER_SIZE)) >= 0)
 		{
 			buff[n] = '\0';
 			//if (ft_findchr(buff, '\0') != n)
 			s[fd] = join_temp(s[fd], buff);
-			//printf("Here |%s|\n", s[fd]);
 		}
 		else
 		{
 			//s[fd] = NULL;
 			free(buff);
-			if (n == 0)
-				return (0);
 			return(-1);
 		}
+		//printf("Here n = %i\n", n);
 	}
 	if (s[fd])
 	{
+		//printf("Here |%s|\n", s[fd]);
 		unite_stnext(line, &s[fd]);
 		divide_static(&s[fd]);
 	}
+	else
+		*line = NULL;
 	//if (*line)
 		//printf("TEMP line - |%s|<-----------------\n", *line);
 	//if (*s)
