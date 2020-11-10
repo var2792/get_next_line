@@ -1,4 +1,8 @@
 #include "get_next_line.h"
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <stdio.h>
 
 int main(void)
 {
@@ -7,12 +11,12 @@ int main(void)
 	int n;
 	char *s;
 	i = 0;
-	//fd = open("../file0", O_RDWR);
-	fd = open("file0", O_RDWR);
-	//fd = open("../file2", O_RDWR);
-	//fd = open("../file3", O_RDWR);
 	//fd = 0;
-	//fd = open("asdfg", O_RDWR);
+	//fd = open("../gnl/file0", O_RDWR);
+	//fd = open("../gnl/file1", O_RDWR);
+	//fd = open("../gnl/file2", O_RDWR);
+	fd = open("file1", O_RDWR);
+	//fd = open("test9", O_RDWR);
 	n = 1;
 	while (n > 0)
 	{
