@@ -12,50 +12,47 @@
 
 #include "get_next_line.h"
 
+int		read_in_buff(int fd, char **s, char *buff, int *n)
+{
+	while (ft_findchr(*s, '\n') < 0 && *n > 0)
+	{
+		if ((*n = read(fd, buff, BUFFER_SIZE)) < 0)
+		{
+			free(s[fd]);
+			free(buff);
+			return (-1);
+		}
+		buff[*n] = '\0';
+		*s = join_temp(*s, buff);
+	}
+	return (1);
+}
+
 int		get_next_line(int fd, char **line)
 {
 	char			*buff;
 	static char		*s[255];
 	int				n;
-	
+	int				fl;
+
 	n = 1;
-	if (fd < 0 || !line || BUFFER_SIZE <= 0) //nb = read(fd, NULL, 0) < 0
+	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (-1);
 	if (!(buff = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
-	//*line = NULL;
-	while (ft_findchr(s[fd], '\n') < 0 && n > 0)
-	{
-		if ((n = read(fd, buff, BUFFER_SIZE)) >= 0)
-		{
-			buff[n] = '\0';
-			//if (ft_findchr(buff, '\0') != n)
-			s[fd] = join_temp(s[fd], buff);
-		}
-		else
-		{
-			//s[fd] = NULL;
-			free(buff);
-			return(-1);
-		}
-		//printf("Here n = %i\n", n);
-	}
+	fl = read_in_buff(fd, &s[fd], buff, &n);
+	free(buff);
+	if (fl < 0)
+		return (fl);
 	if (s[fd])
 	{
-		//printf("Here |%s|\n", s[fd]);
 		unite_stnext(line, &s[fd]);
 		divide_static(&s[fd]);
+		return ((n == 0) ? 0 : 1);
 	}
-	else
-	{
-		*line = NULL;
-		free(s[fd]);
-	}
-	//if (*line)
-		//printf("TEMP line - |%s|<-----------------\n", *line);
-	//if (*s)
-		//printf("TEMP static - |%s|<-----------------\n", s);
-	//printf("End get next line!\t%i\n", n);
-	free(buff);
+	if (!(*line = malloc(sizeof(char) * 1)))
+		return (-1);
+	**line = '\0';
+	free(s[fd]);
 	return ((n == 0) ? 0 : 1);
 }

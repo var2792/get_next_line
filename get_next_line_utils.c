@@ -32,7 +32,6 @@ char	*join_temp(char *s1, char const *s2)
 
 	if (!s1 && !s2)
 		return (NULL);
-	//printf("==> %li %li\n", len_s1, len_s2);
 	if (ft_strlen(s1) == 0 && ft_strlen(s2) == 0)
 	{
 		free(s1);
@@ -85,7 +84,6 @@ void	divide_static(char **st)
 	while ((*st)[i] && (*st)[i] != '\n')
 		i++;
 	len_temp = (ft_strlen(*st) - i) + 1;
-	//printf("Here devide!\n");
 	if (!(temp = malloc(sizeof(char) * len_temp)))
 	{
 		free(*st);
@@ -104,7 +102,6 @@ void	unite_stnext(char **line, char **st)
 	int		i;
 
 	i = 0;
-	//printf("Here unite!\n");
 	if (!(*st))
 		return ;
 	while ((*st)[i] && (*st)[i] != '\n')
@@ -121,7 +118,4 @@ void	unite_stnext(char **line, char **st)
 		i++;
 	}
 	(*line)[i] = '\0';
-	//*st = NULL;
-	//free(*st);
-	//
 }
