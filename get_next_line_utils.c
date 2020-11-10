@@ -75,21 +75,23 @@ void	divide_static(char **st)
 	char	*temp;
 	int		i;
 	int		j;
-	int		len_temp;
 
-	i = 0;
+	i = 1;
 	j = 0;
 	if (!(**st))
 		return ;
-	while ((*st)[i] && (*st)[i] != '\n')
+	while ((*st)[i - 1] && (*st)[i - 1] != '\n')
 		i++;
-	len_temp = (ft_strlen(*st) - i) + 1;
-	if (!(temp = malloc(sizeof(char) * len_temp)))
+	if ((ft_strlen(*st) - i + 1) + 1 == 1)
 	{
 		free(*st);
 		return ;
 	}
-	i++;
+	if (!(temp = malloc(sizeof(char) * ((ft_strlen(*st) - i + 1) + 1))))
+	{
+		free(*st);
+		return ;
+	}
 	while ((*st)[i])
 		temp[j++] = (*st)[i++];
 	temp[j] = '\0';

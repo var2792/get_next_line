@@ -19,7 +19,6 @@ int		read_in_buff(int fd, char **s, char *buff, int *n)
 		if ((*n = read(fd, buff, BUFFER_SIZE)) < 0)
 		{
 			free(s[fd]);
-			free(buff);
 			return (-1);
 		}
 		buff[*n] = '\0';
@@ -31,7 +30,7 @@ int		read_in_buff(int fd, char **s, char *buff, int *n)
 int		get_next_line(int fd, char **line)
 {
 	char			*buff;
-	static char		*s[255];
+	static char		*s[1024];
 	int				n;
 	int				fl;
 

@@ -7,9 +7,12 @@ int main(void)
 	int n;
 	char *s;
 	i = 0;
-	//fd = 0;
+	//fd = open("../file0", O_RDWR);
 	fd = open("file0", O_RDWR);
-	//fd = open("test9", O_RDWR);
+	//fd = open("../file2", O_RDWR);
+	//fd = open("../file3", O_RDWR);
+	//fd = 0;
+	//fd = open("asdfg", O_RDWR);
 	n = 1;
 	while (n > 0)
 	{
@@ -20,6 +23,10 @@ int main(void)
 	close(fd);
 }
 /*
+12345
+67890
+54321
+
 gcc -Wall -Wextra -Werror -D BUFFER_SIZE=1 get_next_line.c get_next_line_utils.c gnl_main.c get_next_line.h && clear && ./a.out
  
 gcc -Wall -Wextra -Werror -D BUFFER_SIZE=2 get_next_line.c get_next_line_utils.c gnl_main.c get_next_line.h && clear && ./a.out
