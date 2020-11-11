@@ -16,15 +16,20 @@ int main(void)
 	//fd = open("../gnl/file1", O_RDWR);
 	//fd = open("../gnl/file2", O_RDWR);
 	fd = open("file1", O_RDWR);
+	//int fd1 = open("file1", O_RDWR);
 	//fd = open("test9", O_RDWR);
 	n = 1;
+	//int n1 = 1;
 	while (n > 0)
 	{
 		n = get_next_line(fd, &s);
-		printf("%i\t%i\t|%s|\n", i++, n, s);
+		printf("%i\t%i\t|%s|\n", i, n, s);
+		//n1 = get_next_line(fd1, &s);
+		//printf("%i\t%i\t|%s|\n", i++, n1, s);
 		free(s);
 	}
 	close(fd);
+	//close(fd1);
 }
 /*
 12345
